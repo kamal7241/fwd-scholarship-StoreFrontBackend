@@ -2,7 +2,7 @@ interface ErrorModel {
     status:number ,
     message : string,
 }
-export class ErrorMessage extends Error implements ErrorModel {
+export class ResonseError extends Error implements ErrorModel {
     status: number;
     message: string;
     constructor(status:number , message:string){
