@@ -1,12 +1,13 @@
 import { ResonseError } from './ResponseError';
-export const asyncHandlerWrapper = async<T>(asyncHandler: () => Promise<T> , error:ResonseError  ):Promise<T> =>{
+export const asyncHandlerWrapper = async <T>(
+    asyncHandler: () => Promise<T>,
+    error: ResonseError
+): Promise<T> => {
     try {
-       return  await asyncHandler();
+        return await asyncHandler();
     } catch (e) {
-        console.log(e)
-        if(error)
-            throw error;
-        else 
-            throw e;
+        console.log(e);
+        if (error) throw error;
+        else throw e;
     }
-}
+};
