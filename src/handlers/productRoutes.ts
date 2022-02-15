@@ -1,3 +1,4 @@
+import { authorizationMw } from './../middlewares/authenticationMW';
 import { ProductStore, ProductDataBase , Product} from './../models/ProductStore';
 import { NextFunction, Request ,  Response } from "express";
 import { Router } from "express";
@@ -53,7 +54,7 @@ const destroy = (_req : Request , res:Response)=>{
 const addProductRoutes = ():Router=>{
     productRouter.get('/' , index );
     productRouter.get('/:id' , show );
-    productRouter.post('/' , create );
+    productRouter.post('/' , authorizationMw , create );
     productRouter.delete('/' , destroy );
     productRouter.delete('/:id' , deleteProduct );
     productRouter.put('/:id' , update );
