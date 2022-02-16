@@ -3,6 +3,10 @@ export enum Enviroment {
     Development = 'dev',
     Production = 'Production',
 }
+export enum ports {
+    Test = 5000 ,
+    Dev = 3000 ,
+}
 export enum ErrorStatus {
     NotFound = 404,
     NotAuthorized = 401,
