@@ -1,4 +1,6 @@
-
+## Storefront Backend Project Guide
+## notes
+    - .env file had been uploaded for review purpose only
 ## Database Requirement
 
 - open .env file and copy POSTGRES_DB , POSTGRES_DB_TEST values
