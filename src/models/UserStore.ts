@@ -58,6 +58,15 @@ export class UserStore {
             return res.rows[0];
         }, new ResonseError(ErrorStatus.BadRequest, 'cant delete user'));
     }
+    async deleteAll(): Promise<UserDataBase[]> {
+        return await asyncHandlerWrapper<UserDataBase[]>(async () => {
+            const connection = await Clinet.connect();
+            const query = `DELETE FROM  users RETURNING *`;
+            const res = await connection.query(query);
+            connection.release();
+            return res.rows;
+        }, new ResonseError(ErrorStatus.BadRequest, 'cant delete users'));
+    }
     async update(user: UserDataBase): Promise<UserDataBase> {
         return await asyncHandlerWrapper<UserDataBase>(async () => {
             const connection = await Clinet.connect();
