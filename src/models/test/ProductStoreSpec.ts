@@ -2,6 +2,9 @@ import { ProductStore, Product, ProductDataBase } from './../ProductStore';
 
 describe('Product store suite', () => {
     const store = new ProductStore();
+    beforeAll(async ()=>{
+        await store.deleteAll()
+    })
     let productId: number;
     let postProduct: Product;
     let updateProduct: ProductDataBase;
@@ -23,7 +26,7 @@ describe('Product store suite', () => {
         )) as ProductDataBase;
         productId = id;
         expect(product).toEqual(postProduct);
-        expect(productId).toBe(1);
+        expect(productId).toBeDefined();
     });
     it('update should return a updated product values', async () => {
         updateProduct = {

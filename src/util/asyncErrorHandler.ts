@@ -6,7 +6,6 @@ export const asyncHandlerWrapper = async <T>(
     try {
         return await asyncHandler();
     } catch (e) {
-        console.log(e);
         if (error) throw error;
         else throw e;
     }

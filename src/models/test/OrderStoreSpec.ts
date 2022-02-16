@@ -3,6 +3,10 @@ import { OrderStatus } from './../../constants/index';
 import { OrderStore, OrderDataBase, Order } from './../OrderStore';
 describe('order store suite', () => {
     const store = new OrderStore();
+    beforeAll( async ()=>{
+        await store.deleteAll()
+        await new UserStore().deleteAll()
+    })
     let orderId: number;
     let createOrder: Order;
     let updateOrder: OrderDataBase;
@@ -28,7 +32,7 @@ describe('order store suite', () => {
         )) as OrderDataBase;
         orderId = id;
         expect(order).toEqual({ ...createOrder, status: OrderStatus.active });
-        expect(id).toBe(1);
+        expect(id).toBeDefined();
     });
     it('update should return a updated order values', async () => {
         updateOrder = {

@@ -1,6 +1,7 @@
 import { UserStore, UserDataBase, User } from './../UserStore';
 
 describe('user store suite', () => {
+
     const store = new UserStore();
     let userId: number;
     let postUser: User;
@@ -9,6 +10,7 @@ describe('user store suite', () => {
         expect(store.index).toBeDefined();
     });
     it('index should return a empty users', async () => {
+        await store.deleteAll()
         const products = await store.index();
         expect(products).toEqual([]);
     });
@@ -21,7 +23,7 @@ describe('user store suite', () => {
         const { id, ...user } = (await store.create(postUser)) as UserDataBase;
         userId = id;
         expect(user).toEqual(postUser);
-        expect(id).toBe(1);
+        expect(id).toBeDefined();
     });
     it('update should return a updated user values', async () => {
         updateUser = {

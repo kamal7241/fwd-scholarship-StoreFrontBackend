@@ -58,6 +58,15 @@ export class ProductStore {
             return res.rows[0];
         }, new ResonseError(ErrorStatus.BadRequest, 'cant delete Product'));
     }
+    async deleteAll(): Promise<ProductDataBase[]> {
+        return await asyncHandlerWrapper<ProductDataBase[]>(async () => {
+            const connection = await Clinet.connect();
+            const query = `DELETE FROM  products RETURNING *`;
+            const res = await connection.query(query);
+            connection.release();
+            return res.rows;
+        }, new ResonseError(ErrorStatus.BadRequest, 'cant delete Products'));
+    }
     async update(product: ProductDataBase): Promise<ProductDataBase> {
         return await asyncHandlerWrapper<ProductDataBase>(async () => {
             const connection = await Clinet.connect();

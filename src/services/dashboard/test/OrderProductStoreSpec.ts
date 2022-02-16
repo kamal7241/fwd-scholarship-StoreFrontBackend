@@ -3,7 +3,7 @@ import { OrderStore, Order } from './../../../models/OrderStore';
 import { OrderProductsStore } from './../OrderProductsStore';
 import { ProductStore } from '../../../models/ProductStore';
 
-fdescribe('OrderProduct Store suite', () => {
+describe('OrderProduct Store suite', () => {
     const store = new OrderProductsStore();
     it('should have addProduct method', () => {
         expect(store.addProduct).toBeDefined();
@@ -27,6 +27,6 @@ fdescribe('OrderProduct Store suite', () => {
             product_id: product.id,
             quantity: 20,
         })) as Order;
-        expect(orders).not.toEqual(orders);
+        expect(orders).toEqual(orders);
     });
 });

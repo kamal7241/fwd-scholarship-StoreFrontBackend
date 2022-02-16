@@ -2,16 +2,18 @@ import { OrderDetailsResponse } from './../userRoutes';
 import { token } from 'morgan';
 import { UserStore } from './../../models/UserStore';
 import { ErrorMessages, OrderStatus } from './../../constants/index';
-import { Product, ProductDataBase } from './../../models/ProductStore';
+import { Product, ProductDataBase  , ProductStore} from './../../models/ProductStore';
 import supertest from "supertest"
 import { app } from "../../server";
 import { ErrorStatus } from '../../constants';
 import { OrderDetails } from '../userRoutes';
 const req = supertest(app);
-fdescribe('user handlers suite', () => {
+describe('user handlers suite', () => {
     const userStore = new UserStore()
+    const prodStore = new ProductStore()
     beforeEach(async ()=>{
         await userStore.deleteAll();
+        await prodStore.deleteAll();
     })
     it('expect login with valid user to return token', async() => {
         const user = await userStore.create({firstname:'kamal' , lastname:'korney' , password:'123'});

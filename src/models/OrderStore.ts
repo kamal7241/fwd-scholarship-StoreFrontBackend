@@ -52,6 +52,15 @@ export class OrderStore {
             return res.rows[0];
         }, new ResonseError(ErrorStatus.BadRequest, 'cant delete order'));
     }
+    async deleteAll(): Promise<OrderDataBase[]> {
+        return await asyncHandlerWrapper<OrderDataBase[]>(async () => {
+            const connection = await Clinet.connect();
+            const query = `DELETE FROM orders RETURNING *`;
+            const res = await connection.query(query);
+            connection.release();
+            return res.rows;
+        }, new ResonseError(ErrorStatus.BadRequest, 'cant delete orders'));
+    }
     async update(order: OrderDataBase): Promise<OrderDataBase> {
         return await asyncHandlerWrapper<OrderDataBase>(async () => {
             const connection = await Clinet.connect();
