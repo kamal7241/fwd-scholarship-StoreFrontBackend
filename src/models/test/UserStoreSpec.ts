@@ -6,6 +6,7 @@ describe('user store suite', () => {
     let userId: number;
     let postUser: User;
     let updateUser: UserDataBase;
+    let created:UserDataBase;
     it('should have index method', () => {
         expect(store.index).toBeDefined();
     });
@@ -20,10 +21,15 @@ describe('user store suite', () => {
             lastname: 'korney',
             password: '123456',
         };
-        const { id, ...user } = (await store.create(postUser)) as UserDataBase;
+        created = (await store.create(postUser)) as UserDataBase;
+        const { id, ...user } = created;
         userId = id;
         expect(user).toEqual(postUser);
         expect(id).toBeDefined();
+    });
+    it('show should return our created users', async () => {
+        const prod = await store.show(created.id);
+        expect(prod).toEqual(created);
     });
     it('update should return a updated user values', async () => {
         updateUser = {

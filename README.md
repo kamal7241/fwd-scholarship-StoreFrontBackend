@@ -18,3 +18,4 @@
   - starts development server on port 3000
 - npm run test-build
   - starts test server on port 5000
+- database port is 5432

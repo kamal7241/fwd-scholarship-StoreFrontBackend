@@ -8,6 +8,7 @@ describe('Product store suite', () => {
     let productId: number;
     let postProduct: Product;
     let updateProduct: ProductDataBase;
+    let created:ProductDataBase;
     it('should have index method', () => {
         expect(store.index).toBeDefined();
     });
@@ -15,18 +16,24 @@ describe('Product store suite', () => {
         const products = await store.index();
         expect(products).toEqual([]);
     });
+
     it('create should return a product', async () => {
         postProduct = {
             price: 100,
             name: 'shampo',
             category: 'cleaner',
         };
-        const { id, ...product } = (await store.create(
+         created  = (await store.create(
             postProduct
         )) as ProductDataBase;
+        const { id, ...product } = created;
         productId = id;
         expect(product).toEqual(postProduct);
         expect(productId).toBeDefined();
+    });
+    it('show should return created product', async () => {
+        const product = await store.show(created.id);
+        expect(product).toEqual(created);
     });
     it('update should return a updated product values', async () => {
         updateProduct = {

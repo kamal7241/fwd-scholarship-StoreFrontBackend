@@ -1,4 +1,3 @@
-import { asyncHandlerWrapper } from './../util/asyncErrorHandler';
 import Clinet from '../database';
 import { ResonseError } from '../util/ResponseError';
 import { ErrorStatus } from '../constants';
@@ -13,31 +12,29 @@ export interface UserDataBase extends User {
 
 export class UserStore {
     async index(): Promise<UserDataBase[]> {
-        return await asyncHandlerWrapper<UserDataBase[]>(
-            async (): Promise<UserDataBase[]> => {
-                const connection = await Clinet.connect();
-                const query = `SELECT * FROM users`;
-                const res = await connection.query(query);
-                connection.release();
-                return res.rows;
-            },
-            new ResonseError(ErrorStatus.NotFound, 'can`t get users')
-        );
+        try {
+            const connection = await Clinet.connect();
+            const query = `SELECT * FROM users`;
+            const res = await connection.query(query);
+            connection.release();
+            return res.rows;
+        } catch (e) {
+            throw new ResonseError(ErrorStatus.NotFound, `can't get users ${e}`)
+        }
     }
     async show(id: number): Promise<UserDataBase> {
-        return await asyncHandlerWrapper<UserDataBase>(
-            async (): Promise<UserDataBase> => {
-                const connection = await Clinet.connect();
-                const query = `SELECT * FROM users WHERE id=$1`;
-                const res = await connection.query(query, [id]);
-                connection.release();
-                return res.rows[0];
-            },
-            new ResonseError(ErrorStatus.NotFound, 'can`t get user')
-        );
+        try {
+            const connection = await Clinet.connect();
+            const query = `SELECT * FROM users WHERE id=$1`;
+            const res = await connection.query(query, [id]);
+            connection.release();
+            return res.rows[0];
+        } catch (e) {
+            throw new ResonseError(ErrorStatus.NotFound, `can't get user ${e}`)
+        }
     }
     async create(user: User): Promise<UserDataBase> {
-        return await asyncHandlerWrapper<UserDataBase>(async () => {
+        try {
             const connection = await Clinet.connect();
             const query = `INSERT INTO users(firstname , lastname , password) VALUES($1,$2,$3) RETURNING *`;
             const res = await connection.query(query, [
@@ -47,28 +44,34 @@ export class UserStore {
             ]);
             connection.release();
             return res.rows[0];
-        }, new ResonseError(ErrorStatus.BadRequest, 'cant Create user'));
+        } catch (e) {
+            throw new ResonseError(ErrorStatus.NotFound, `can't Create user ${e}`)
+        }
     }
     async delete(id: number): Promise<UserDataBase> {
-        return await asyncHandlerWrapper<UserDataBase>(async () => {
+        try {
             const connection = await Clinet.connect();
             const query = `DELETE FROM  users WHERE id=$1 RETURNING *`;
             const res = await connection.query(query, [id]);
             connection.release();
             return res.rows[0];
-        }, new ResonseError(ErrorStatus.BadRequest, 'cant delete user'));
+        } catch (e) {
+            throw new ResonseError(ErrorStatus.NotFound, `can't delete user ${e}`)
+        }
     }
     async deleteAll(): Promise<UserDataBase[]> {
-        return await asyncHandlerWrapper<UserDataBase[]>(async () => {
+        try {
             const connection = await Clinet.connect();
             const query = `DELETE FROM  users RETURNING *`;
             const res = await connection.query(query);
             connection.release();
             return res.rows;
-        }, new ResonseError(ErrorStatus.BadRequest, 'cant delete users'));
+        } catch (e) {
+            throw new ResonseError(ErrorStatus.NotFound, `can't delete user ${e}`)
+        }
     }
     async update(user: UserDataBase): Promise<UserDataBase> {
-        return await asyncHandlerWrapper<UserDataBase>(async () => {
+        try {
             const connection = await Clinet.connect();
             const query = `UPDATE users SET firstname= $1 , lastname= $2 , password= $3 WHERE id=$4 RETURNING *`;
             const res = await connection.query(query, [
@@ -79,6 +82,8 @@ export class UserStore {
             ]);
             connection.release();
             return res.rows[0];
-        }, new ResonseError(ErrorStatus.BadRequest, 'cant update user'));
+        } catch (e) {
+            throw new ResonseError(ErrorStatus.NotFound, `can't update user ${e}`)
+        }
     }
 }

@@ -29,27 +29,35 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 #### Product
 
-- id
-- name
-- price
-- category
+name        | type          | constrains
+---         | ---           | ---
+id          | INTEGER       | PRIMARY KEY
+name        | VARCHAR(50)   | UNIQUE
+price       | INT           |
+category    | VARCHAR(50)   |
 
 #### User
 
-- id
-- firstName
-- lastName
-- password
+name        | type          | constrains
+---         | ---           | ---
+id          | INTEGER       | PRIMARY KEY
+firstName   | VARCHAR(50)   | UNIQUE
+lastName    | VARCHAR(50)   |
+password    | VARCHAR(100)  |
 
-#### Orders
+#### Order
 
-- id
-- user_id
-- status of order (active or complete) by default : active
+name        | type          | constrains
+---         | ---           | ---
+id          | INTEGER       | PRIMARY KEY
+user_id     | INTEGER        | forign key
+status      | order_status(custom type)  | DEFAULT 'active'
 
 #### order_products
 
-- id
-- order_id (forign key of orders )
-- product_id (forign key of products )
-- quantity (number)
+name        | type          | constrains
+---         | ---           | ---
+id          | INTEGER       | PRIMARY KEY
+order_id    | INTEGER        | forign key
+product_id  | INTEGER        | forign key
+quantity    | INTEGER  
