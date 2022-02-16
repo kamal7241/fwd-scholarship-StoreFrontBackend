@@ -1,17 +1,17 @@
-import { ProductStore } from './../models/ProductStore';
-import { authorizationMw } from './../middlewares/authenticationMW';
-import { createToken } from './../util/index';
-import { Order, OrderStore } from './../models/OrderStore';
+import { ProductStore } from '../../src/models/ProductStore';
+import { authorizationMw } from '../../src/middlewares/authenticationMW';
+import { createToken } from '../../src/util/index';
+import { Order, OrderStore } from '../../src/models/OrderStore';
 import {
     OrderProductsStore,
     OrderProduct,
     OrderproductsDataBase,
-} from './../services/dashboard/OrderProductsStore';
-import { UserStore, UserDataBase, User } from './../models/UserStore';
+} from '../../src/services/dashboard/OrderProductsStore';
+import { UserStore, UserDataBase, User } from '../../src/models/UserStore';
 import { Request, Response, NextFunction } from 'express';
 import { Router } from 'express';
-import { encrypt } from '../util';
-import { authenticationMw } from '../middlewares/authenticationMW';
+import { encrypt } from '../../src/util';
+import { authenticationMw } from '../../src/middlewares/authenticationMW';
 export interface OrderDetails extends Order {
     products: { quantity: number; id: number }[];
 }

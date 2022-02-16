@@ -1,4 +1,4 @@
-import { ProductStore, Product, ProductDataBase } from './../ProductStore';
+import { ProductStore, Product, ProductDataBase } from '../../src/models/ProductStore';
 
 describe('Product store suite', () => {
     const store = new ProductStore();

@@ -1,9 +1,9 @@
-import { authorizationMw } from './../middlewares/authenticationMW';
+import { authorizationMw } from '../../src/middlewares/authenticationMW';
 import {
     ProductStore,
     ProductDataBase,
     Product,
-} from './../models/ProductStore';
+} from '../../src/models/ProductStore';
 import { NextFunction, Request, Response } from 'express';
 import { Router } from 'express';
 const productRouter = Router();

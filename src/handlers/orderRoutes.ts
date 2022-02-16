@@ -1,7 +1,7 @@
-import { OrderStore , Order , OrderDataBase} from './../models/OrderStore';
+import { OrderStore , Order , OrderDataBase} from '../../src/models/OrderStore';
 import { NextFunction, Request, Response } from 'express';
 import { Router } from 'express';
-import { authorizationMw } from '../middlewares/authenticationMW';
+import { authorizationMw } from '../../src/middlewares/authenticationMW';
 const orderRouter = Router();
 const index = async (_req: Request, res: Response , next:NextFunction) => {
     try {

@@ -6,7 +6,7 @@ import { NextFunction, Request, Response } from 'express';
 import Client from '../database';
 export const authenticationMw = async (
     req: Request,
-    res: Response,
+    _res: Response,
     next: NextFunction
 ) => {
     const user = req.body as User;
@@ -15,8 +15,10 @@ export const authenticationMw = async (
     const result = await connection.query(query, [user.firstname]);
     connection.release();
     if (result.rows.length) {
-        if (isPasswordMatchHashed(user.password, result.rows[0].password))
+        if (isPasswordMatchHashed(user.password, result.rows[0].password)){
             next();
+            return;
+        }
         next(
             new ResonseError(
                 ErrorStatus.NotAuthorized,

@@ -1,12 +1,11 @@
-import { OrderDetailsResponse } from './../userRoutes';
-import { token } from 'morgan';
-import { UserStore } from './../../models/UserStore';
-import { ErrorMessages, OrderStatus } from './../../constants/index';
-import { Product, ProductDataBase  , ProductStore} from './../../models/ProductStore';
+import { OrderDetails } from './../../src/handlers/userRoutes';
+import { ErrorStatus , OrderStatus , ErrorMessages} from './../../src/constants/index';
+import { app } from '../../src/server';
+import { Product, ProductDataBase  , ProductStore } from '../../src/models/ProductStore';
+import { OrderDetailsResponse } from '../../src/handlers/userRoutes';
 import supertest from "supertest"
-import { app } from "../../server";
-import { ErrorStatus } from '../../constants';
-import { OrderDetails } from '../userRoutes';
+import { UserStore } from '../../src/models/UserStore';
+
 const req = supertest(app);
 describe('user handlers suite', () => {
     const userStore = new UserStore()

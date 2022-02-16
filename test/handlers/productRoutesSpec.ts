@@ -1,11 +1,15 @@
-import { UserStore } from './../../models/UserStore';
-import { ErrorMessages } from './../../constants/index';
-import { Product, ProductDataBase } from './../../models/ProductStore';
 import supertest from "supertest"
-import { app } from "../../server";
-import { ErrorStatus } from '../../constants';
+import { ErrorStatus , ErrorMessages } from './../../src/constants/index';
+import { app } from '../../src/server';
+import { UserStore } from '../../src/models/UserStore';
+import { Product, ProductDataBase  } from '../../src/models/ProductStore';
+
 const req = supertest(app);
 describe('product handlers suite', () => {
+    const userStore = new UserStore()
+    beforeAll(async()=>{
+        await userStore.deleteAll();
+    })
     let token:string;
     let createdProd:ProductDataBase;
     it('expect getting all products to be empty', async() => {
@@ -26,7 +30,6 @@ describe('product handlers suite', () => {
     });
 
     it('expect create a products to return our product', async() => {
-        const userStore = new UserStore()
         const user = await userStore.create({firstname:'kamal' , lastname:'korney' , password:'123'});
         const loginRes = await req.post('/api/users/login').send(user);
          token = loginRes.body.token;

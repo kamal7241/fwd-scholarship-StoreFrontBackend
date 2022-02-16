@@ -2,7 +2,7 @@ import  dotenv  from 'dotenv';
 import bodyParser from 'body-parser';
 import express, { Request, Response } from 'express';
 import morgan from 'morgan';
-import addAppRoutes from './handlers/index';
+import addAppRoutes from './handlers';
 import { Enviroment, ports } from './constants';
 export const app: express.Application = express();
 app.use(bodyParser.json());

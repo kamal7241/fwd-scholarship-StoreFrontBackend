@@ -1,4 +1,4 @@
-import { UserStore, UserDataBase, User } from './../UserStore';
+import { UserStore, UserDataBase, User } from '../../src/models/UserStore';
 
 describe('user store suite', () => {
 

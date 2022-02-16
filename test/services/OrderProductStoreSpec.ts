@@ -1,8 +1,7 @@
-import { UserStore } from './../../../models/UserStore';
-import { OrderStore, Order } from './../../../models/OrderStore';
-import { OrderProductsStore } from './../OrderProductsStore';
-import { ProductStore } from '../../../models/ProductStore';
-
+import { OrderProductsStore } from './../../src/services/dashboard/OrderProductsStore';
+import { UserStore } from './../../src/models/UserStore';
+import { OrderStore, Order } from './../../src/models/OrderStore';
+import { ProductStore } from './../../src/models/ProductStore';
 describe('OrderProduct Store suite', () => {
     const store = new OrderProductsStore();
     it('should have addProduct method', () => {

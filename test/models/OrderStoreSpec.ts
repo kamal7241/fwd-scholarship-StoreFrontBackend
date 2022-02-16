@@ -1,6 +1,6 @@
-import { UserStore } from './../UserStore';
-import { OrderStatus } from './../../constants/index';
-import { OrderStore, OrderDataBase, Order } from './../OrderStore';
+import { UserStore } from '../../src/models/UserStore';
+import { OrderStatus } from '../../src/constants/index';
+import { OrderStore, OrderDataBase, Order } from '../../src/models/OrderStore';
 describe('order store suite', () => {
     const store = new OrderStore();
     beforeAll( async ()=>{

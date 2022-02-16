@@ -2,7 +2,7 @@ import express, { NextFunction, Request, Response } from 'express';
 import addProductRoutes from './productRoutes';
 import addOrderRoutes from './orderRoutes';
 import addUserRoutes from './userRoutes';
-import { ResonseError } from '../util/ResponseError';
+import { ResonseError } from '../../src/util/ResponseError';
 const addAppRoutes = (app: express.Application) => {
     app.use('/api/products', addProductRoutes());
     app.use('/api/orders', addOrderRoutes());
