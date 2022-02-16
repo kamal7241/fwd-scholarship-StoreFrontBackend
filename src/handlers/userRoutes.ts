@@ -12,10 +12,10 @@ import { Request, Response, NextFunction } from 'express';
 import { Router } from 'express';
 import { encrypt } from '../util';
 import { authenticationMw } from '../middlewares/authenticationMW';
-interface OrderDetails extends Order {
+export interface OrderDetails extends Order {
     products: { quantity: number; id: number }[];
 }
-interface OrderDetailsResponse extends Order {
+export interface OrderDetailsResponse extends Order {
     products: OrderproductsDataBase[];
 }
 const userRoutes = Router();
@@ -168,10 +168,11 @@ const destroy = async (_req: Request, res: Response) => {
 const addUserRoutes = (): Router => {
     userRoutes.get('/', authorizationMw, index);
     userRoutes.post('/login', authenticationMw, login);
+    userRoutes.post('/register', create);
     userRoutes.post('/', authorizationMw, create);
-    userRoutes.post('/:id/orders', createOrder);
-    userRoutes.get('/:id/orders/:orderId', getUserOrder);
-    userRoutes.get('/:id/orders', getUserOrders);
+    userRoutes.post('/:id/orders', authorizationMw , createOrder);
+    userRoutes.get('/:id/orders/:orderId', authorizationMw , getUserOrder);
+    userRoutes.get('/:id/orders' , authorizationMw , getUserOrders);
     userRoutes.get('/:id', authorizationMw, show);
     userRoutes.post('/:id/orders/:orderId/products', addProductToOrder);
     userRoutes.delete('/', destroy);
